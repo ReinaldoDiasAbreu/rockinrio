@@ -1,0 +1,54 @@
+#painel #container{
+    width: 100vw;
+    height: 100vh;
+}
+
+/*Definição do cabeçalho*/
+
+#container header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#container header .logo{
+    max-width: 20%;
+    max-height: 20%;
+}
+
+#container header .user{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#container header .user button{
+    margin: 1rem;
+    padding: 5px 10px;
+    border-radius: 10%;
+    transition: background-color 0.25s ease-out, color 0.25s ease-out;
+	cursor: pointer;
+}
+
+#container div.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#container div.main .busca form{
+    margin: 3rem;
+}
+
+#container div.main .busca input.button{
+    transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+@media (min-width: 700px) {
+    #painel #container {
+        max-width: 100vw;
+    }
+}

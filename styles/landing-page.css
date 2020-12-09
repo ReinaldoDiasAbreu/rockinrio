@@ -1,0 +1,34 @@
+#container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.form-login fieldset{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 5px;
+}
+.form-login fieldset legend{
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.form-login fieldset button{
+    margin-top: 1rem;
+    padding: 2px;
+}
+
+.form-login fieldset p{
+    margin-top: 1rem;
+}
+
+.form-login fieldset input{
+    padding: 1px;
+}
+
+.form-login fieldset id#tipofuncionario{
+    justify-content: center;
+}
