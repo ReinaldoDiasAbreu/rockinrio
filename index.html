@@ -17,7 +17,7 @@
             </div>
         
             <div class="form-login">
-                <form>
+                <form method="POST" action="php/login.php">
                     <fieldset>
                         <legend>Login</legend>
 
@@ -30,14 +30,16 @@
                             <label for="funcionario">Funcionário</label>
                         </div>
 
-                        <p>Credencial: <input type="text" maxlength="15"></p>
+                        <p>Credencial: <input type="text" name="user" id = "user" maxlength="11"></p>
 
                         <button type="submit">Entrar</button>
 
                     </fieldset>
                 </form>
             </div>
-    
+            <footer style="margin-top: 3rem; margin-bottom: 3rem; text-align: center;" > RockInRio &#169; Todos os direitos reservados.</footer>
+
         </div>
+        
     </body>
 </html>
