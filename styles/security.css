@@ -23,7 +23,7 @@
     align-items: center;
 }
 
-#container header .user a#button{
+#container a#button{
     font: 500 1.6rem Poppins;
     color: black;
     font-size: 12pt;
@@ -58,4 +58,75 @@
     #painel #container {
         max-width: 100vw;
     }
+}
+
+/*Pagina de cadastro da ocorrencia*/
+
+#container .main .form-cadastro fieldset{
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+#container .main .form-cadastro fieldset legend{
+    margin-right: 5px;
+    margin-left: 5px;
+    padding: 5px;
+}
+
+#container .main .form-cadastro fieldset p{
+    margin: 5px;
+    margin-top: 10px;
+}
+
+#container .main .form-cadastro fieldset p input{
+    margin-left: 5px;
+    font: 500 1.6rem Poppins;
+    padding: 0.5rem;
+}
+
+#container .main .form-cadastro fieldset p label{
+    margin-left: 5px;
+}
+
+#container .main .form-cadastro fieldset p select#data{
+    padding: 1rem;
+}
+
+#container .main .form-cadastro fieldset p#text-box{
+    display: flex;
+}
+
+#container .main .form-cadastro fieldset p#text-box textarea{
+    margin-left: 5px;
+    resize: none;
+    padding: 5px;
+}
+
+#container .main .form-cadastro fieldset#pessoas div#pessoasenvolvidas select{
+    margin: 5px;
+    padding: 5px;
+    font: 500 1.6rem Poppins;
+    display: flex;
+}
+
+#container .main .form-cadastro fieldset#pessoas div#botoes{
+    margin-bottom: 2rem;
+}
+
+#container .main .form-cadastro fieldset#pessoas div#botoes a{
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#container .main .form-cadastro div#btn-enviar input{
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 2rem;
+}
+
+#container .main .form-cadastro div#btn-enviar{
+    display: block;
+    float: right;
+    margin-bottom: 4rem;
 }
