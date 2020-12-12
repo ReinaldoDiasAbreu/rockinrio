@@ -1,4 +1,12 @@
 <?php 
+
+    function erro_login(){
+        session_unset();
+        session_destroy();
+        echo "<script language=javascript>alert( 'Acesso negado ao sistema!' );	</script>";
+        echo "<script language=javascript>window.location.replace('../index.html');</script>";  
+    }
+
      include ('../bd/database.php');
      $func = isset($_POST["funcionario"])?$_POST["funcionario"]:"";
      $user = isset($_POST["user"])?$_POST["user"]:"";
@@ -15,13 +23,12 @@
                     $_SESSION['user'] = $user;
                     header('location:../security.php');
                }
+               else{  
+                erro_login();  
+                }
             }
-            else{  
-                session_unset();
-                session_destroy();
-                oci_close($conn);
-                echo "<script language=javascript>alert( 'Acesso negado ao sistema!' );	</script>";
-                echo "<script language=javascript>window.location.replace('../index.html');</script>";  
+            else{ 
+                erro_login();  
             }
         }
         else if($func == "bilheteria"){
@@ -35,13 +42,12 @@
                     $_SESSION['user'] = $user;
                     header('location: ../bilheteria.php');
                }
+               else{  
+                erro_login();  
+                }
             }
             else{  
-                session_unset();
-                session_destroy();
-                oci_close($conn);
-                echo "<script language=javascript>alert( 'Acesso negado ao sistema!' );	</script>";
-                echo "<script language=javascript>window.location.replace('../index.html');</script>";  
+                erro_login();  
             }
         }
      }
