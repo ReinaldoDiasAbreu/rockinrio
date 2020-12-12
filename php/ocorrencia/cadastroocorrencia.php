@@ -86,7 +86,7 @@ if(empty($_SESSION['user'])) {
                         
                             <div id="botoes">
                                 <a onclick="addPessoa()" class="button" id="button">Adicionar</a>
-                                <a onclick="addPessoa()" class="button" id="button">Cadastrar Pessoa</a>
+                                <a href="../people/new.php" target="_blank" class="button" id="button">Cadastrar Pessoa</a>
                             </div>  
 
                         <div id="pessoasenvolvidas">
@@ -117,6 +117,7 @@ if(empty($_SESSION['user'])) {
                             
                             
                         </div>
+                    
                     </fieldset>
 
                     <div id="btn-enviar">
@@ -124,9 +125,9 @@ if(empty($_SESSION['user'])) {
                     </div>
                     
                 </form>
-                    
-                
+
             </div>
+
         </div>
     </body>
 </html>
