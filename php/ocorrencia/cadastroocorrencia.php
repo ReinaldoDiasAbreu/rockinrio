@@ -27,6 +27,7 @@ if(empty($_SESSION['user'])) {
                 newFieldContainer2.id = "lblcpfpessoa".concat(String(n));
                 newFieldContainer.name = "cpfpessoa".concat(String(n));
                 newFieldContainer2.htmlFor = "cpfpessoa".concat(String(n));
+                
                 // Adiciona o clone como filho
                 document.querySelector("#pessoasenvolvidas").appendChild(newFieldContainer2);
                 document.querySelector("#pessoasenvolvidas").appendChild(newFieldContainer);
@@ -46,6 +47,8 @@ if(empty($_SESSION['user'])) {
                 </div>
             </header>
 
+            <div id="navegacao"><a href="../../security.php">< Voltar</a></div>
+
             <div class="main">
             
                 <form method="POST" action="new.php" class="form-cadastro">
@@ -55,12 +58,10 @@ if(empty($_SESSION['user'])) {
 
                         <?php 
                             include ('../../bd/database.php');
-                            $query = "SELECT MAX(NUMERO) AS QUANT FROM OCORRENCIA";
-                            $result = BD_returnrow($query);
-                            echo "<p>Número: <input type='number' id='numero' name='numero' value=".($result["QUANT"]+1)." required readonly>";
 
                             $query = "SELECT DATA FROM LINEUP";
                             $stid = BD_returnrows($query);
+
                             echo "<label for='data'>Data: </label>
                             <select name='data' id='data' required >
                             <optgroup id='data' label='LineUps'>";
@@ -101,7 +102,7 @@ if(empty($_SESSION['user'])) {
                                     
                                     if($stid != null){
                                         while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {     
-                                            echo "<option value=".$row['CPF'].">".$row['CPF']." - ".$row['NOME']." - ".$row['DATANASCIMENTO']."</option>" ;
+                                            echo "<option value=".$row['CPF']." style={text-aling: center;}>".$row['NOME']." | ".$row['CPF']." | ".$row['DATANASCIMENTO']."</option>" ;
                                         }
                                     }
                                     else{

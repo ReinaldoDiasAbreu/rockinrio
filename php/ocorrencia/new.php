@@ -28,10 +28,17 @@ if(empty($_SESSION['user'])) {
                 </div>
             </header>
 
+            <div id="navegacao"><a href="../../security.php">< Voltar</a></div>
+
             <div class="main">
 
                 <?php
-                    $numero = (isset($_POST["numero"])?$_POST["numero"] : "");
+                    include ('../../bd/database.php');
+
+                    $query = "SELECT MAX(NUMERO) AS QUANT FROM OCORRENCIA";
+                    $result = BD_returnrow($query);
+                    
+                    $numero = ($result["QUANT"]+1);
                     $data = (isset($_POST["data"])?($_POST["data"]) : "");
                     $descricao = (isset($_POST["desc"])?($_POST["desc"]) : "");
                     $latitude = (isset($_POST["latitude"])?($_POST["latitude"]) : "");
@@ -39,8 +46,7 @@ if(empty($_SESSION['user'])) {
                     $seguranca = (isset($_POST["seguranca"])?($_POST["seguranca"]) : "");
 
                     if($numero != "" && $seguranca != "" && $data != ""){
-                        
-                        include ('../../bd/database.php');
+
                         $query = "INSERT INTO OCORRENCIA VALUES ( $numero, TO_DATE('$data', 'DD-MM-YYYY'), '$descricao', $seguranca, $latitude, $longitude)";
 
                         $stid = BD_insert($query);
@@ -62,7 +68,14 @@ if(empty($_SESSION['user'])) {
                             }
 
                             if($pinsert == $n){
-                                echo "<p>Sucesso ao cadastrar ocorrência ;)</p>";
+                                echo "<p>Sucesso ao cadastrar ocorrência ;)</p><br>";
+                                echo "<p>Ocorrência Número: $numero</p>";
+                                echo "<p>Envolvidos: $pinsert cadastrados.</p>";
+                                echo "<p>Descrição: $descricao</p>";
+                                echo "<p>Localização: $latitude ° lat - $longitude ° long</p>";
+                                echo "<p>Segurança CPF: $seguranca</p>";
+
+                                
                             }
 
                         }
