@@ -35,9 +35,9 @@ if(empty($_SESSION['user'])) {
 
                 <div class="busca">
                     <form action="#" method="GET">
-                        <input type="text" name="cod" id="cod" maxlength=12 placeholder="Código">
-                        <input type="date" name="lineup" id="lineup" laceholder="LineUp">
-                        <input type="text" name="credencial" id="credencial"  maxlength=12 placeholder="CPF Segurança">
+                        <input type="text" name="cod" id="cod" placeholder="Código">
+                        <input type="date" name="lineup" id="lineup" placeholder="LineUp" >
+                        <input type="text" name="credencial" id="credencial"  maxlength=11 placeholder="CPF Segurança">
                         <input type="submit" class="button" value="Filtrar">
                         <a href="php/ocorrencia/cadastroocorrencia.php" id="button"> Nova </a>
                     </form>

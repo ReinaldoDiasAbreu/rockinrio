@@ -60,6 +60,7 @@
     margin: 1rem;
     padding: 1rem;
     border-radius: 1rem;
+    width: 100%;
 }
 
 #container .main .form-cadastro fieldset legend{
@@ -77,6 +78,7 @@
     margin-left: 5px;
     font: 500 1.6rem Poppins;
     padding: 0.5rem;
+    width: 100%;
 }
 
 #container .main .form-cadastro fieldset p label{

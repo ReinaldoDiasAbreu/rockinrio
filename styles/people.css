@@ -1,0 +1,24 @@
+#container .main .form-cadastro fieldset#telefones div#telefonespessoa input{
+    width: 100%;
+    padding: 5px;
+    font: 500 1.6rem Poppins;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#container .main .form-cadastro fieldset#telefones div#telefonespessoa label{
+    font: 500 1.6rem Poppins;
+}
+
+#container .main .form-cadastro fieldset#telefones div#botoes{
+    margin-bottom: 2rem;
+}
+
+#container .main .form-cadastro fieldset#dados select{
+    margin: 5px;
+    padding: 5px;
+    font: 500 1.6rem Poppins;
+    display: flex;
+}
+
+

@@ -74,7 +74,6 @@ if(empty($_SESSION['user'])) {
                                 echo "<p>Descrição: $descricao</p>";
                                 echo "<p>Localização: $latitude ° lat - $longitude ° long</p>";
                                 echo "<p>Segurança CPF: $seguranca</p>";
-
                                 
                             }
 
