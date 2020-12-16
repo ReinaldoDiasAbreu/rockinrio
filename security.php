@@ -17,7 +17,7 @@ if(empty($_SESSION['user'])) {
         <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
         <script>
             function NotPermission(){
-               alert( 'Você não pode excluir ocorrências dos demais seguranças!');
+               alert( 'Você não pode realizar essa operação em ocorrências de outros seguranças!');
             }
         </script>
     </head>
@@ -103,10 +103,12 @@ if(empty($_SESSION['user'])) {
                                             echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
                                         }
                                         echo "<td><form method='POST' action='php/ocorrencia/view.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Visualizar</button></form></td>";
-                                        echo "<td><form method='POST' action='php/ocorrencia/update.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Atualizar</button></form></td>";
+                                        
                                         if($row["CPFPROFISSIONALSEG"] == $_SESSION["user"]){
+                                            echo "<td><form method='POST' action='php/ocorrencia/update.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Atualizar</button></form></td>";
                                             echo "<td><form method='POST' action='php/ocorrencia/delete.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Excluir</button></form></td>";
                                         }else{
+                                            echo "<td><button type='submit' name='cod' onclick='NotPermission()' >Atualizar</button></form></td>";
                                             echo "<td><button type='submit' name='cod' onclick='NotPermission()' >Excluir</button></form></td>";
                                         }
                                         echo "</tr>\n";

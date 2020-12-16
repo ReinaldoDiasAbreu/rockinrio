@@ -26,10 +26,21 @@ if(empty($_SESSION['user'])) {
                     <a href="../exit.php" id="button"> Sair </a>
                 </div>
             </header>
+            <div id="navegacao"><a href="../../security.php">< Voltar</a></div>
             <div class="main">
+
                 <?php
                     $idocorrencia = isset($_POST['cod'])?$_POST['cod']:-1;
-                    echo "<h1>Delete: ".$idocorrencia."</h1>";
+                    $seg = isset($_SESSION['user'])?$_SESSION['user']:"";
+                    include ('../../bd/database.php');
+                    echo "<h3>Deletar Ocorrência: ".$idocorrencia."</h3>";
+                    $return = BD_execute("DELETE FROM OCORRENCIA WHERE NUMERO = $idocorrencia and CPFPROFISSIONALSEG = $seg");
+                    if($return != null){
+                        echo "<p>Ocorrência deletada com sucesso ;)</p>";
+                    }else{
+                        echo "<p>Houve um erro ao deletar ocorrência!</p>";
+                    }
+
                 ?>
             
             </div>

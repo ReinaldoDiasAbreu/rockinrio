@@ -50,7 +50,7 @@ if(empty($_SESSION['user'])) {
             <div id="navegacao"><a href="../../security.php">< Voltar</a></div>
 
             <div class="main">
-            
+                <h3>Cadastrar Ocorrência</h3>
                 <form method="POST" action="new.php" class="form-cadastro">
 
                     <fieldset id="dados">

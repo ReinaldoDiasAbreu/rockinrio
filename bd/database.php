@@ -60,7 +60,7 @@
 
     }
      
-    function BD_insert($query){
+    function BD_execute($query){
         $conn = BD_connect();
 
         if($conn != null){
@@ -73,6 +73,12 @@
                 return $e;
             }
             else{
+                // Commit the changes to both tables
+                $r = oci_commit($conn);
+                if (!$r) {
+                    $e = oci_error($conn);
+                    trigger_error(htmlentities($e['message']), E_USER_ERROR);
+                }
                 oci_close($conn);
                 return $stid;
             }

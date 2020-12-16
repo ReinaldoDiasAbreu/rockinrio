@@ -91,7 +91,7 @@ if(empty($_SESSION['user'])) {
             <div id="navegacao"><a href="../../security.php">< Voltar</a></div>
 
             <div class="main">
-                
+                <h3>Cadastrar Pessoa</h3>
                 <form method="POST" action="new.php" class="form-cadastro">
 
                     <fieldset id="dados">
@@ -136,7 +136,6 @@ if(empty($_SESSION['user'])) {
 
                     <fieldset class="funcionario" style="display: none;">
                         <legend>Funcionário</legend>
-                        <p>Registro: <input type="number" name="registro" id="registro"></p>
                         <label for="tipofuncionario">Tipo Pessoa: </label>
                         <select name="tipofuncionario" id="tipofuncionario" onclick="selectedTipoFunc(this.value)">
                             <optgroup>
@@ -146,12 +145,10 @@ if(empty($_SESSION['user'])) {
                                 <option value="web">Webmaster</option>
                             </optgroup>
                         </select>
-                        <p>Cargo: <input type="text" name="cargo" id="cargo" maxlength="10"></p>
                     </fieldset>
 
                     <fieldset class="seguranca" style="display: none;">
                         <legend>Segurança</legend>
-                        <p>Credencial: <input type="number" name="credencial" id="credencial"></p>
                         <p>Localização: <input type="text" name="localizacao" id="localizacao" maxlength="50"></p>
                         <?php 
                             include ('../../bd/database.php');
