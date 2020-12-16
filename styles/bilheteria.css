@@ -1,0 +1,12 @@
+
+#container .main select#data{
+    padding: .5rem;
+    font: 500 1.5rem Poppins;
+}
+
+#container .main .form-cadastro fieldset#pessoas div#dadosespectador select{
+    margin: 5px;
+    padding: 5px;
+    font: 500 1.6rem Poppins;
+    display: flex;
+}
