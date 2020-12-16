@@ -92,9 +92,9 @@ if(empty($_SESSION['user'])) {
                         <div id="pessoasenvolvidas">
                             
                             <label for="cpfpessoa0" id="lblcpfpessoa0">CPF Pessoa: </label>
-                            <select name="cpfpessoa0" id="cpfpessoa0">
+                            <select name="cpfpessoa0" id="cpfpessoa0"> 
                                 <optgroup id="cpf" label="Pessoas cadastradas">
-                                    <option value=""></option>
+                                    <option value="-1"></option>
                                     
                                     <?php
                                     $query = "SELECT CPF, NOME, DATANASCIMENTO FROM PESSOA ORDER BY NOME";

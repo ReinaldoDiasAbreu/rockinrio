@@ -56,18 +56,18 @@ if(empty($_SESSION['user'])) {
                             $pinsert = 0;
                             while(isset($_POST["cpfpessoa".(string) $n])?($_POST["cpfpessoa".(string) $n]):""!=""){
                                 $cpf = $_POST["cpfpessoa".(string) $n];
-                                
-                                $queryp = "INSERT INTO ocorrenciapessoa VALUES ($cpf, $numero)";
+                                if($cpf != "-1"){
+                                    $queryp = "INSERT INTO ocorrenciapessoa VALUES ($cpf, $numero)";
 
-                                $stid2 = BD_execute($queryp);
-                                if($stid2 != null){
-                                    $pinsert++;
+                                    $stid2 = BD_execute($queryp);
+                                    if($stid2 != null){
+                                        $pinsert++;
+                                    }
                                 }
-
                                 $n++;
                             }
 
-                            if($pinsert == $n){
+                            if($pinsert > 0){
                                 echo "<p>Sucesso ao cadastrar ocorrência ;)</p><br>";
                                 echo "<p>Ocorrência Número: $numero</p>";
                                 echo "<p>Envolvidos: $pinsert cadastrados.</p>";

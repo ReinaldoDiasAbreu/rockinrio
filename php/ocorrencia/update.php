@@ -15,25 +15,6 @@ if(empty($_SESSION['user'])) {
         <link rel="stylesheet" href="../../styles/main.css">
         <link rel="stylesheet" href="../../styles/security.css">
         <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
-        
-        <script>
-            function addPessoa() {
-                // Clona o nodo
-                const newFieldContainer = document.querySelector("#cpfpessoa".concat(String(n))).cloneNode(true);
-                const newFieldContainer2 = document.querySelector("#lblcpfpessoa".concat(String(n))).cloneNode(true);
-  
-                n = n + 1
-                newFieldContainer.id = "cpfpessoa".concat(String(n));
-                newFieldContainer2.id = "lblcpfpessoa".concat(String(n));
-                newFieldContainer.name = "cpfpessoa".concat(String(n));
-                newFieldContainer2.htmlFor = "cpfpessoa".concat(String(n));
-                
-                // Adiciona o clone como filho
-                document.querySelector("#pessoasenvolvidas").appendChild(newFieldContainer2);
-                document.querySelector("#pessoasenvolvidas").appendChild(newFieldContainer);
-                
-            }
-        </script>
 
     </head>
     <body id="painel">
@@ -48,84 +29,65 @@ if(empty($_SESSION['user'])) {
             </header>
             <div id="navegacao"><a href="../../security.php">< Voltar</a></div>
             <div class="main">
-                <?php
-                    $idocorrencia = isset($_POST['cod'])?$_POST['cod']:-1;
-                    echo "<h3>Atualizar Ocorrência: ".$idocorrencia."</h3>";
+                
+            <?php
                     include ('../../bd/database.php');
-                    $ocorrencia = BD_returnrow("SELECT NUMERO, DATA, DESCRICAO, CPFPROFISSIONALSEG, LATITUDE, LONGITUDE FROM OCORRENCIA WHERE NUMERO = $idocorrencia");
-                    $pessoas = BD_returnrows("SELECT CPF, NOME, DATANASCIMENTO FROM (SELECT CPFPESSOA FROM OCORRENCIAPESSOA WHERE NUMEROOCORENCIA =  $idocorrencia) PO, PESSOA WHERE PESSOA.CPF = PO.CPFPESSOA");
-                   
-                ?>
+                    $numero =  (isset($_POST["numero"])?($_POST["numero"]) : "-1");
+                    $data = (isset($_POST["data"])?($_POST["data"]) : "");
+                    $descricao = (isset($_POST["desc"])?($_POST["desc"]) : "");
+                    $latitude = (isset($_POST["latitude"])?($_POST["latitude"]) : "");
+                    $longitude = (isset($_POST["longitude"])?($_POST["longitude"]) : "");
+                    $seguranca = (isset($_POST["seguranca"])?($_POST["seguranca"]) : "");
 
-                <form method="POST" action="#" class="form-cadastro">
+                    if($numero != "-1" && $seguranca != "" && $data != "" && $descricao != ""){
 
-                <fieldset id="dados">
-                    <legend>Dados Gerais</legend>
+                        $query = "UPDATE OCORRENCIA SET DATA = TO_DATE('$data', 'DD-MM-YYYY'), DESCRICAO = '$descricao', CPFPROFISSIONALSEG = $seguranca, LONGITUDE = $longitude, LATITUDE = $latitude WHERE NUMERO = $numero";
 
-                    <?php 
-
-                        $query = "SELECT DATA FROM LINEUP";
-                        $stid = BD_returnrows($query);
-
-                        echo "<label for='data'>Data: </label>
-                        <select name='data' id='data' required >
-                        <optgroup id='data' label='LineUps'>";
-                        echo "<option value=".$ocorrencia["DATA"]." selected> ".$ocorrencia['DATA'] ."</option>";
-                        if($stid != null){
-                            while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {     
-                                echo "<option value=".$row['DATA'].">".$row['DATA']."</option>" ;
-                            }
-                        }
-                        echo "</optgroup></select>";       
-                                
-                    ?>
-
-                    <p id="text-box">Descrição: <textarea id="desc" name="desc" rows="2" cols="40" maxlength="50" required><?php echo $ocorrencia["DESCRICAO"]; ?></textarea></p>
-                    <p>Latitude: <input type="number" name="latitude" id="latitude" required value="<?php echo $ocorrencia["LATITUDE"]; ?>">
-                    Longitude: <input type="number" name="longitude" id="longitude" required value="<?php echo $ocorrencia["LONGITUDE"]; ?>"></p>
-                    <p>Segurança: <input type="number" name="seguranca" id="seguranca" value="<?php echo $ocorrencia["CPFPROFISSIONALSEG"]; ?>" required readonly></p>
-                </fieldset>
-
-                <fieldset id="pessoas">
-                    <legend>Envolvidos</legend>
+                        $stid = BD_execute($query);
                     
-                        <div id="botoes">
-                            <a onclick="addPessoa()" class="button" id="button">Adicionar</a>
-                            <a href="../people/cadastrarpessoa.php" target="_blank" class="button" id="button">Cadastrar Pessoa</a>
-                        </div>  
+                        if($stid != null){
+                            // Para simplificar o problema, removo as pessoas da referida ocorrência do banco, e reinciro novamente
+                            // incluindo as alteradas e as adicionadas
+                            $stiddelete = BD_execute("DELETE FROM OCORRENCIAPESSOA WHERE NUMEROOCORENCIA = $numero");
+                           
+                            if($stiddelete != null){
+                                $n = 0;
+                                $pinsert = 0;
 
-                    <div id="pessoasenvolvidas">
-                    <?php 
-                        $count = 0; 
-                        while ($row = oci_fetch_array($pessoas, OCI_ASSOC+OCI_RETURN_NULLS)) {     
-                            echo "<label for='cpfpessoa".$count."' id='lblcpfpessoa".$count."'>CPF Pessoa: </label> <select name='cpfpessoa".$count."' id='cpfpessoa".$count."'> <optgroup id='cpf' label='Pessoas cadastradas'>";
-                            $cpf = $row['CPF'];
-                            $nome = $row['NOME'];
-                            $nasc = $row['DATANASCIMENTO'];
-                            echo "<option value=".$cpf." style={text-aling: center;} selected>".$nome." | ".$cpf." | ".$nasc."</option>" ;
-                             
-                            $stid = BD_returnrows("SELECT CPF, NOME, DATANASCIMENTO FROM PESSOA WHERE CPF != $cpf ORDER BY NOME");
-                            if($stid != null){
-                                while ($all = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {     
-                                    echo "<option value=".$all['CPF']." style={text-aling: center;}>".$all['NOME']." | ".$all['CPF']." | ".$all['DATANASCIMENTO']."</option>" ;
+                                while(isset($_POST["cpfpessoa".(string) $n])?($_POST["cpfpessoa".(string) $n]):""!=""){
+                                    
+                                    $cpf = $_POST["cpfpessoa".(string) $n];
+
+                                    if($cpf != "-1"){
+                                        $queryp = "INSERT INTO OCORRENCIAPESSOA VALUES ($cpf, $numero)";
+
+                                        $stid2 = BD_execute($queryp);
+                                        if($stid2 != null){
+                                            $pinsert++;
+                                        }
+                                    }
+                                    $n++;
+                                }
+
+                                if($pinsert > 0){
+                                    echo "<p>Sucesso ao atualizar ocorrência ;)</p><br>";
+                                    echo "<p>Ocorrência Número: $numero</p>";
+                                    echo "<p>Envolvidos: $pinsert cadastrados.</p>";
+                                    echo "<p>Descrição: $descricao</p>";
+                                    echo "<p>Localização: $latitude ° lat - $longitude ° long</p>";
+                                    echo "<p>Segurança CPF: $seguranca</p>";
+                                    
                                 }
                             }
-                            else{
-                                echo "<p>Erro na conexão com banco de dados!</p>";
-                            }
-                            echo "</optgroup> </select>";
-                            $count++;
                         }
-                    ?>
-                    </div>
-                </fieldset>
+                        else{
+                            echo "<p>Erro ao cadastrar ocorrência.</p>";
+                        } 
 
-                <div id="btn-enviar">
-                    <input type="submit" class="button" id="botaoenviar" value="Cadastrar">
-                </div>
+                    }
 
-                </form>
-                            
+                ?>
+
             </div>
         </div>
 
