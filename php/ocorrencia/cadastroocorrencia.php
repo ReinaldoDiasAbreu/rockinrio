@@ -50,7 +50,7 @@ if(empty($_SESSION['user'])) {
             <div id="navegacao"><a href="../../security.php">< Voltar</a></div>
 
             <div class="main">
-            
+                <h3>Cadastrar Ocorrência</h3>
                 <form method="POST" action="new.php" class="form-cadastro">
 
                     <fieldset id="dados">
@@ -86,7 +86,7 @@ if(empty($_SESSION['user'])) {
                         
                             <div id="botoes">
                                 <a onclick="addPessoa()" class="button" id="button">Adicionar</a>
-                                <a href="../people/new.php" target="_blank" class="button" id="button">Cadastrar Pessoa</a>
+                                <a href="../people/cadastrarpessoa.php" target="_blank" class="button" id="button">Cadastrar Pessoa</a>
                             </div>  
 
                         <div id="pessoasenvolvidas">
@@ -97,7 +97,7 @@ if(empty($_SESSION['user'])) {
                                     <option value=""></option>
                                     
                                     <?php
-                                    $query = "SELECT CPF, NOME, DATANASCIMENTO FROM PESSOA";
+                                    $query = "SELECT CPF, NOME, DATANASCIMENTO FROM PESSOA ORDER BY NOME";
                                     $stid = BD_returnrows($query);
                                     
                                     if($stid != null){
