@@ -29,13 +29,54 @@ if(empty($_SESSION['user'])) {
             </header>
 
             <div class="main">
+                    <h3>Relatório do Sistema</h3>
 
-                    <object data="exiberelatorio.php" width="80%" height="800px"></object>
+                    <form>
+                        <?php 
+                            include ('../../bd/database.php');
 
-                   
+                            $query = "SELECT DATA FROM LINEUP";
+                            $stid = BD_returnrows($query);
 
+                            echo "<label for='data'>Data: </label>
+                            <select name='data' id='data' required >
+                            <optgroup id='data' label='LineUps'>";
+                            echo "<option value=''></option>";
+                            if($stid != null){
+                                while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {     
+                                    echo "<option value=".$row['DATA'].">".$row['DATA']."</option>" ;
+                                }
+                            }
+                            echo "</optgroup></select>";    
+                        ?>
+                    </form>
+                    <table border="1px">
+                        <tr style='text-align: center; font-weight: bolder; font-family: Arial'>
+                            <td>LINE UP</td>
+                            <td>CAPACIDADE</td>
+                            <td>QUANTIDADE INGRESSOS</td>
+                            <td>MEDIA PREÇO</td>
+                        </tr>
+
+                    <?php
+                        include ('../bd/database.php');
+
+                        $status_lineup = "SELECT DATA, CAPACIDADE, COUNT(NUMERO) AS QUANTIDADEINGRESSOS, ROUND(AVG(VALOR),2) AS MEDIAPRECOS FROM (SELECT DATA, CAPACIDADE FROM LINEUP) LINEUPS JOIN
+                        (SELECT NUMERO, VALOR, PERTENCEDATALINEUP FROM INGRESSO) INGRESSOS ON LINEUPS.DATA = INGRESSOS.PERTENCEDATALINEUP GROUP BY (DATA, CAPACIDADE)";
+
+                        $result = BD_returnrows( $status_lineup );
+
+                        while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {  
+                            echo "<tr>\n";
+                            foreach ($row as $item) {
+                                echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+                            }
+                            echo "</tr>\n";
+                        }
+
+                    ?>
+                     </table>
             </div>
-
             <footer style="margin-top: 3rem; margin-bottom: 3rem; text-align: center;" > RockInRio &#169; Todos os direitos reservados.</footer>
 
 
