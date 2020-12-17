@@ -32,7 +32,7 @@ if(empty($_SESSION['user'])) {
             <div class="main">
                 <?php
                     $idingresso = isset($_POST['cod'])?$_POST['cod']:-1;                    
-                    echo "<h3>Atualizar Ocorrência: ".$idingresso."</h3>";
+                    echo "<h3>Atualizar Ingresso: ".$idingresso."</h3>";
                     include ('../../bd/database.php');
                     $ingresso = BD_returnrow("SELECT NUMERO, VALOR, CPFESPECTADOR, PERTENCEDATALINEUP FROM INGRESSO WHERE NUMERO = $idingresso");
                     $pessoa = BD_returnrow("SELECT CPF, NOME, DATANASCIMENTO, CEP, BAIRRO, NUMERO, RUA FROM PESSOA WHERE CPF = (SELECT CPFESPECTADOR FROM INGRESSO WHERE NUMERO = $idingresso)");
@@ -44,12 +44,13 @@ if(empty($_SESSION['user'])) {
                     <legend>Dados Ingresso</legend>
                    
                     <?php 
-                        echo " <p>Numero: <input type='number' name='numero' id='numero' readonly value='$idingresso'></p>";
+                        echo " <p>Numero: <input type='number' name='numero' id='numero' readonly value=$idingresso></p>";
                         $stid = BD_returnrows("SELECT DATA FROM LINEUP");
+                        
                         echo "<label for='data'>Data: </label>
                         <select name='data' id='data' required>
                         <optgroup id='data' label='LineUps'>";
-                        echo "<option value=".$ingresso["PERTENCEDATALINEUP"]." selected> ".$ingresso['PERTENCEDATALINEUP'] ."</option>";
+                        echo "<option value=".$ingresso['PERTENCEDATALINEUP']." selected> ".$ingresso['PERTENCEDATALINEUP'] ."</option>";
                         if($stid != null){
                             while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {     
                                 echo "<option value=".$row['DATA'].">".$row['DATA']."</option>" ;
@@ -69,8 +70,7 @@ if(empty($_SESSION['user'])) {
                             <label for="espectador" id="lblespectador">Espectador: </label>
                             <select name="espectador" id="espectador">
                                 <optgroup label="Espectadores cadastrados">
-                                    
-                                    
+
                                     <?php
                                     echo "<option value=".$pessoa['CPF']." style={text-aling: center;} selected>".$pessoa['NOME']." | ".$pessoa['CPF']." | ".$pessoa['DATANASCIMENTO']."</option>";
 
@@ -102,7 +102,5 @@ if(empty($_SESSION['user'])) {
                             
             </div>
         </div>
-
-        <script><?php echo "n=$count-1"; ?></script>
     </body>
 </html>
