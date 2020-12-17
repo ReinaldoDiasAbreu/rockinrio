@@ -39,10 +39,7 @@ if(empty($_SESSION['user'])) {
 
                     if($numero != "-1" && $espectador != "" && $data != ""){
 
-                        $query = "UPDATE INGRESSO SET VALOR = $valor, CPFESPECTADOR = $espectador, PERTENCEDATALINEUP = TO_DATE('$data', 'DD-MM-YYYY') WHERE NUMERO = $numero";
-
-                        var_dump($_POST);
-                        echo $query;
+                        $query = "UPDATE INGRESSO SET VALOR = $valor, CPFESPECTADOR = $espectador, PERTENCEDATALINEUP = TO_DATE('$data') WHERE NUMERO = $numero";
 
                         $stid = BD_execute($query);
                     
@@ -56,10 +53,8 @@ if(empty($_SESSION['user'])) {
                         }
                         else{
                             echo "<p>Erro ao atualizar ingresso.</p>";
-                        } 
-
+                        }
                     }
-
                 ?>
 
             </div>

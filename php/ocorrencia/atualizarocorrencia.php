@@ -129,6 +129,24 @@ if(empty($_SESSION['user'])) {
                             echo "</optgroup> </select>";
                             $count++;
                         }
+                        if($count == 0){
+                            echo "<label for='cpfpessoa' id='lblcpfpessoa0'>CPF Pessoa: </label> <select name='cpfpessoa0' id='cpfpessoa0'> <optgroup id='cpf' label='Pessoas cadastradas'>";
+                            $cpf = $row['CPF'];
+                            $nome = $row['NOME'];
+                            $nasc = $row['DATANASCIMENTO'];
+                            echo "<option value='-1' style={text-aling: center;} ></option>" ;
+                            $stid = BD_returnrows("SELECT CPF, NOME, DATANASCIMENTO FROM PESSOA ORDER BY NOME");
+                            if($stid != null){
+                                while ($all = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {     
+                                    echo "<option value=".$all['CPF']." style={text-aling: center;}>".$all['NOME']." | ".$all['CPF']." | ".$all['DATANASCIMENTO']."</option>" ;
+                                }
+                            }
+                            else{
+                                echo "<p>Erro na conexão com banco de dados!</p>";
+                            }
+                            echo "</optgroup> </select>";
+                            $count = 1;
+                        }
                     ?>
                     </div>
                 </fieldset>

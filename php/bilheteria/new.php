@@ -40,13 +40,13 @@ if(empty($_SESSION['user'])) {
                     $result = BD_returnrow($query);
                     
                     $numero = ($result["QUANT"]+1);
-                    $data = (isset($_POST["pertencedatalineup"])?($_POST["pertencedatalineup"]) : "");
+                    $data = (isset($_POST["data"])?($_POST["data"]) : "");
                     $valor = (isset($_POST["valor"])?($_POST["valor"]) : "");
-                    $espectador = (isset($_POST["cpfespectador"])?($_POST["cpfespectador"]) : "");
+                    $espectador = (isset($_POST["espectador"])?($_POST["espectador"]) : "");
 
                     if($numero != "" && $espectador != "" && $data != ""){
 
-                        $query = "INSERT INTO INGRESSO (NUMERO, VALOR, CPFESPECTADOR, PERTENCEDATALINEUP) VALUES ( $numero, '$valor', $espectador, TO_DATE('$data', 'DD-MM-YYYY'))";
+                        $query = "INSERT INTO INGRESSO (NUMERO, VALOR, CPFESPECTADOR, PERTENCEDATALINEUP) VALUES ( $numero, $valor, $espectador, TO_DATE('$data'))";
 
                         $stid = BD_execute($query);
 

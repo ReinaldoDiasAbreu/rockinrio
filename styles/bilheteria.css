@@ -10,3 +10,19 @@
     font: 500 1.6rem Poppins;
     display: flex;
 }
+
+#container div.main form.form-cadastro fieldset#dados a.consultashows{
+    border: 1px black solid;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 2rem;
+    cursor: pointer;
+}
+
+#container div.main div.busca form a.consultashows{
+    border: 1px black solid;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 2rem;
+    cursor: pointer;
+}
