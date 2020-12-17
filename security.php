@@ -105,7 +105,7 @@ if(empty($_SESSION['user'])) {
                                         echo "<td><form method='POST' action='php/ocorrencia/view.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Visualizar</button></form></td>";
                                         
                                         if($row["CPFPROFISSIONALSEG"] == $_SESSION["user"]){
-                                            echo "<td><form method='POST' action='php/ocorrencia/update.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Atualizar</button></form></td>";
+                                            echo "<td><form method='POST' action='php/ocorrencia/atualizarocorrencia.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Atualizar</button></form></td>";
                                             echo "<td><form method='POST' action='php/ocorrencia/delete.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Excluir</button></form></td>";
                                         }else{
                                             echo "<td><button type='submit' name='cod' onclick='NotPermission()' >Atualizar</button></form></td>";

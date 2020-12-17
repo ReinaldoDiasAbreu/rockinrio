@@ -34,7 +34,7 @@ if(empty($_SESSION['user'])) {
                     echo "<h3>Visualizar Ocorrência: ".$idocorrencia."</h3>";
                     include ('../../bd/database.php');
                     $ocorrencia = BD_returnrow("SELECT NUMERO, DATA, DESCRICAO, CPFPROFISSIONALSEG, LATITUDE, LONGITUDE FROM OCORRENCIA WHERE NUMERO = $idocorrencia");
-                    $pessoas = BD_returnrows("SELECT CPF, NOME, DATANASCIMENTO FROM (SELECT CPFPESSOA FROM OCORRENCIAPESSOA WHERE NUMEROOCORENCIA =  $idocorrencia) PO, PESSOA WHERE PESSOA.CPF = PO.CPFPESSOA");
+                    $pessoas = BD_returnrows("SELECT CPF, NOME, DATANASCIMENTO, TIPOPESSOA, RUA, NUMERO, BAIRRO, CEP FROM PESSOA WHERE PESSOA.CPF in (SELECT CPFPESSOA FROM OCORRENCIAPESSOA WHERE NUMEROOCORENCIA =  $idocorrencia)");
                    
                 ?>
 
@@ -63,10 +63,20 @@ if(empty($_SESSION['user'])) {
                             $cpf = $row['CPF'];
                             $nome = $row['NOME'];
                             $nasc = $row['DATANASCIMENTO'];
+                            $tipo = $row['TIPOPESSOA'];
+                            $rua = $row['RUA'];
+                            $numero = $row['NUMERO'];
+                            $bairro = $row['BAIRRO'];
+                            $cep = $row['CEP']; 
                             echo "<fieldset> <legend>Pessoa ".$count.":</legend>";
                             echo "<p>CPF: <input type='text' maxlength='11' name='cpf' id='cpf' readonly value='".($cpf)."'></p>";
                             echo "<p>Nome: <input type='text' maxlength='50' name='nome' id='nome' readonly value='".($nome)."'></p>";
                             echo "<p>Nascimento: <input type='date' name='datanascimento' id='datanascimento' readonly value='".date('Y-m-d', strtotime($nasc))."'></p>";
+                            echo "<p>Tipo: <input type='text' maxlength='21' name='tipo' id='tipo' readonly value='".($tipo)."'></p>";
+                            echo "<p>Rua: <input type='text' maxlength='21' name='rua' id='rua' readonly value='".($rua)."'></p>";
+                            echo "<p>Numero: <input type='number' name='num' id='num' readonly value='".($numero)."'></p>";
+                            echo "<p>Bairro: <input type='text' maxlength='31' name='bairro' id='bairro' readonly value='".($bairro)."'></p>";
+                            echo "<p>CEP: <input type='text' maxlength='9' name='cep' id='cep' readonly value='".($cep)."'></p>";
                             echo "</fieldset>";
                             $count++;
                         }
