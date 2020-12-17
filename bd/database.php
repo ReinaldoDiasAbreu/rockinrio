@@ -2,8 +2,8 @@
 
     function BD_connect(){
         $db = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = grad.icmc.usp.br)(PORT = 15215)))(CONNECT_DATA=(SID=orcl)))" ;
-        $user = "root";
-        $password = "root";
+        $user = "";
+        $password = "";
         if($conn = oci_connect($user, $password, $db)){
             return $conn;
          }
