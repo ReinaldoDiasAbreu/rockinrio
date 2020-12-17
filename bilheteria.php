@@ -16,11 +16,7 @@ if(empty($_SESSION['user'])) {
         <link rel="stylesheet" href="styles/security.css">
         <link rel="stylesheet" href="styles/bilheteria.css">
         <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
-        <script>
-            function NotPermission(){
-               alert( 'Você não pode excluir ocorrências dos demais seguranças!');
-            }
-        </script>
+
     </head>
     <body id="painel">
         <div id="container">
@@ -123,9 +119,9 @@ if(empty($_SESSION['user'])) {
                                         foreach ($row as $item) {
                                             echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
                                         }
-                                        echo "<td><form method='POST' action='php/ocorrencia/view.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Visualizar</button></form></td>";
-                                        echo "<td><form method='POST' action='php/ocorrencia/update.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Atualizar</button></form></td>";
-                                        echo "<td><form method='POST' action='php/ocorrencia/delete.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Excluir</button></form></td>";
+                                        echo "<td><form method='POST' action='php/bilheteria/view.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Visualizar</button></form></td>";
+                                        echo "<td><form method='POST' action='php/bilheteria/atualizaringresso.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Atualizar</button></form></td>";
+                                        echo "<td><form method='POST' action='php/bilheteria/delete.php'><button type='submit' name='cod' value=".$row["NUMERO"]." >Excluir</button></form></td>";
 
                                         echo "</tr>\n";
                                     

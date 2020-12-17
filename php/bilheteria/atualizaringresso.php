@@ -28,53 +28,52 @@ if(empty($_SESSION['user'])) {
                     <a href="../exit.php" id="button"> Sair </a>
                 </div>
             </header>
-
             <div id="navegacao"><a href="../../bilheteria.php">< Voltar</a></div>
-
             <div class="main">
-            
-                <form method="POST" action="new.php" class="form-cadastro">
+                <?php
+                    $idingresso = isset($_POST['cod'])?$_POST['cod']:-1;                    
+                    echo "<h3>Atualizar Ocorrência: ".$idingresso."</h3>";
+                    include ('../../bd/database.php');
+                    $ingresso = BD_returnrow("SELECT NUMERO, VALOR, CPFESPECTADOR, PERTENCEDATALINEUP FROM INGRESSO WHERE NUMERO = $idingresso");
+                    $pessoa = BD_returnrow("SELECT CPF, NOME, DATANASCIMENTO, CEP, BAIRRO, NUMERO, RUA FROM PESSOA WHERE CPF = (SELECT CPFESPECTADOR FROM INGRESSO WHERE NUMERO = $idingresso)");
+                ?>
 
-                    <fieldset id="dados">
-                        <legend>Venda Ingresso</legend>
+                <form method="POST" action="update.php" class="form-cadastro">
 
-                        <?php 
-                            include ('../../bd/database.php');
-
-                            $query = "SELECT DATA FROM LINEUP";
-                            $stid = BD_returnrows($query);
-
-                            echo "<label for='data'>Data: </label>
-                            <select name='data' id='data' required >
-                            <optgroup id='data' label='LineUps'>";
-                            echo "<option value=''></option>";
-                            if($stid != null){
-                                while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {     
-                                    echo "<option value=".$row['DATA'].">".$row['DATA']."</option>" ;
-                                }
+                <fieldset id="dados">
+                    <legend>Dados Ingresso</legend>
+                   
+                    <?php 
+                        echo " <p>Numero: <input type='number' name='numero' id='numero' readonly value='$idingresso'></p>";
+                        $stid = BD_returnrows("SELECT DATA FROM LINEUP");
+                        echo "<label for='data'>Data: </label>
+                        <select name='data' id='data' required>
+                        <optgroup id='data' label='LineUps'>";
+                        echo "<option value=".$ingresso["PERTENCEDATALINEUP"]." selected> ".$ingresso['PERTENCEDATALINEUP'] ."</option>";
+                        if($stid != null){
+                            while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {     
+                                echo "<option value=".$row['DATA'].">".$row['DATA']."</option>" ;
                             }
-                            echo "</optgroup></select>";       
-                                    
-                        ?>
+                        }
+                        echo "</optgroup></select>";     
+                    ?>
+    
+                    <p>Valor: <input type="number" name="valor" id="valor" required value="<?php echo $ingresso["VALOR"]; ?>"></p>                
+                </fieldset>
 
-                        <p>Valor: <input type="number" min="0" name="valor" id="valor" required></p>
-                    </fieldset>
-
-                    <fieldset id="pessoas">
-                        <legend>Espectador</legend>
-                        
-                            <div id="botoes">
-                                <a href="../people/cadastrarpessoa.php" target="_blank" class="button" id="button">Cadastrar Espectador</a>
-                            </div>  
-
-                        <div id="dadosespectador">
+                <fieldset id="pessoas">
+                    <legend>Espectador</legend>
+                    
+                    <div id="dadosespectador">
                             
-                            <label for="espectador" id="lblespectador">Dados Espectador: </label>
+                            <label for="espectador" id="lblespectador">Espectador: </label>
                             <select name="espectador" id="espectador">
                                 <optgroup label="Espectadores cadastrados">
-                                    <option value=""></option>
+                                    
                                     
                                     <?php
+                                    echo "<option value=".$pessoa['CPF']." style={text-aling: center;} selected>".$pessoa['NOME']." | ".$pessoa['CPF']." | ".$pessoa['DATANASCIMENTO']."</option>";
+
                                     $query = "SELECT CPF, NOME, DATANASCIMENTO FROM PESSOA WHERE CPF IN (SELECT CPFPESSOA FROM ESPECTADOR) ORDER BY NOME";
                                     $stid = BD_returnrows($query);
                                     
@@ -93,13 +92,17 @@ if(empty($_SESSION['user'])) {
                                 
                             </select>
                         </div>
-                    </fieldset>
+                </fieldset>
 
-                    <div id="btn-enviar">
-                        <input type="submit" class="button" id="botaoenviar" value="Vender Ingresso">
-                    </div>                    
+                <div id="btn-enviar">
+                        <input type="submit" class="button" id="botaoenviar" value="Atualizar">
+                </div>
+                
                 </form>
+                            
             </div>
         </div>
+
+        <script><?php echo "n=$count-1"; ?></script>
     </body>
 </html>
