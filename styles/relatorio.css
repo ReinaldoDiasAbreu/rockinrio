@@ -1,0 +1,25 @@
+
+
+body#painel #container div.main table#relatorio{
+    margin-top: 2rem;
+} 
+
+body#painel #container div.main form select{
+    padding: 0.5rem 1rem;
+    font: 500 1.6rem Poppins;
+} 
+
+body#painel #container div.main form input#btn-enviar{
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 2rem;
+    cursor: pointer;
+} 
+
+body#painel #container div.main form a#imprimir{
+    border: 1px black solid;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 2rem;
+    cursor: pointer;
+} 

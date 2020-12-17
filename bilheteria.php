@@ -16,7 +16,15 @@ if(empty($_SESSION['user'])) {
         <link rel="stylesheet" href="styles/security.css">
         <link rel="stylesheet" href="styles/bilheteria.css">
         <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
-
+        <script> 
+            function consultarshow(){
+                const select = document.getElementById("data");
+                var value = select.options[select.selectedIndex].value;
+                if(value != "" && value != null){
+                    window.open("php/bilheteria/visualizarshows.php?data=".concat(String(value)), '_blank');
+                }
+            }
+        </script>
     </head>
     <body id="painel">
         <div id="container">
@@ -57,6 +65,7 @@ if(empty($_SESSION['user'])) {
                         <input type="text" name="cpfespectador" id="cpfespectador"  maxlength=11 placeholder="CPF Espectador">
                         <input type="submit" class="button" value="Filtrar">
                         <a href="php/bilheteria/vendaingresso.php" id="button"> Vender Ingresso </a>
+                        <a class="consultashows" onclick="consultarshow()">Consultar Shows</a>
                     </form>
 
                 </div>

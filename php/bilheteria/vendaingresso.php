@@ -16,7 +16,15 @@ if(empty($_SESSION['user'])) {
         <link rel="stylesheet" href="../../styles/security.css">
         <link rel="stylesheet" href="../../styles/bilheteria.css">
         <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
-
+        <script> 
+            function consultarshow(){
+                const select = document.getElementById("data");
+                var value = select.options[select.selectedIndex].value;
+                if(value != "" && value != null){
+                    window.open("visualizarshows.php?data=".concat(String(value)), '_blank');
+                }
+            }
+        </script>
     </head>
     <body id="painel">
         <div id="container">
@@ -45,7 +53,7 @@ if(empty($_SESSION['user'])) {
                             $stid = BD_returnrows($query);
 
                             echo "<label for='data'>Data: </label>
-                            <select name='data' id='data' required >
+                            <select name='data' id='data' class='dataselecionada' required >
                             <optgroup id='data' label='LineUps'>";
                             echo "<option value=''></option>";
                             if($stid != null){
@@ -54,9 +62,9 @@ if(empty($_SESSION['user'])) {
                                 }
                             }
                             echo "</optgroup></select>";       
-                                    
+                            
                         ?>
-
+                        <a class="consultashows" onclick="consultarshow()">Consultar Shows</a>
                         <p>Valor: <input type="number" min="0" name="valor" id="valor" required></p>
                     </fieldset>
 
