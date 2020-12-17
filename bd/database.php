@@ -2,11 +2,13 @@
 
     function BD_connect(){
         $db = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = grad.icmc.usp.br)(PORT = 15215)))(CONNECT_DATA=(SID=orcl)))" ;
-
-        if($conn = oci_connect("G7m22129", "password", $db)){
+        $user = "G7m22129";
+        $password = "password";
+        if($conn = oci_connect($user, $password, $db)){
             return $conn;
          }
          else{
+            echo "<h3>Erro na conexão com banco de dados!</h3>";
             return null;
          }
     }
@@ -30,7 +32,6 @@
             }
         }
         else{
-            oci_close($conn);
             return null;
         }
 
@@ -54,7 +55,6 @@
             }
         }
         else{
-            oci_close($conn);
             return null;
         }
 
@@ -84,7 +84,6 @@
             }
         }
         else{
-            oci_close($conn);
             return null;
         }
 

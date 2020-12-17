@@ -1,7 +1,8 @@
 <?php 
 
     function erro_login(){
-        session_unset();
+        session_start();
+        unset( $_SESSION['user'] );
         session_destroy();
         echo "<script language=javascript>alert( 'Acesso negado ao sistema!' );	</script>";
         echo "<script language=javascript>window.location.replace('../index.html');</script>";  
@@ -12,50 +13,71 @@
      $user = isset($_POST["user"])?$_POST["user"]:"";
      
      if($func != "" && $user != ""){
-        if($func == "seguranca"){
-            $query = "SELECT COUNT(*) QUANT FROM FUNCIONARIO WHERE CPFPESSOA = $user AND TIPOFUNCIONARIO = 'seg'";
-            $result = BD_returnrow($query);
 
-            if( $result ) {
-               if($result["QUANT"] == 1){
-                    if (session_status() != PHP_SESSION_ACTIVE) 
-                        session_start();
-                    $_SESSION['user'] = $user;
-                    header('location:../security.php');
-               }
-               else{  
-                erro_login();  
-                }
-            }
-            else{ 
-                erro_login();  
-            }
-        }
-        else if($func == "bilheteria"){
-            $query = "SELECT COUNT(*) QUANT FROM FUNCIONARIO WHERE CPFPESSOA = $user";
-            $result = BD_returnrow($query);
+         switch($func){
+            case "seguranca":
+                $query = "SELECT COUNT(*) QUANT FROM FUNCIONARIO WHERE CPFPESSOA = $user AND TIPOFUNCIONARIO = 'seg'";
+                $result = BD_returnrow($query);
 
-            if( $result ) {
-               if($result["QUANT"] == 1){
-                    if (session_status() != PHP_SESSION_ACTIVE) 
-                        session_start();
-                    $_SESSION['user'] = $user;
-                    header('location: ../bilheteria.php');
-               }
-               else{  
-                erro_login();  
+                if( $result != null ) {
+                    if($result["QUANT"] == 1){
+                            if (session_status() != PHP_SESSION_ACTIVE) 
+                                session_start();
+                            $_SESSION['user'] = $user;
+                            header('location:../security.php');
+                    }
+                    else{  
+                        erro_login();  
+                    }
                 }
-            }
-            else{  
-                erro_login();  
-            }
-        }
+                else{ 
+                    erro_login();  
+                }
+            break;
+            case "bilheteria":
+                $query = "SELECT COUNT(*) QUANT FROM FUNCIONARIO WHERE CPFPESSOA = $user";
+                $result = BD_returnrow($query);
+    
+                if( $result != null) {
+                   if($result["QUANT"] == 1){
+                        if (session_status() != PHP_SESSION_ACTIVE) 
+                            session_start();
+                        $_SESSION['user'] = $user;
+                        header('location: ../bilheteria.php');
+                   }
+                   else{  
+                    erro_login();  
+                    }
+                }
+                else{  
+                    erro_login();  
+                }
+            break;
+            case "relatorio":
+                $query = "SELECT COUNT(*) QUANT FROM FUNCIONARIO WHERE CPFPESSOA = $user";
+                $result = BD_returnrow($query);
+    
+                if( $result != null) {
+                   if($result["QUANT"] == 1){
+                        if (session_status() != PHP_SESSION_ACTIVE) 
+                            session_start();
+                            $_SESSION['user'] = $user;
+                            header('location: ../php/relatorio.php');
+                   }
+                   else{  
+                    erro_login();  
+                    }
+                }
+                else{  
+                    erro_login();  
+                }
+            break;
+         }
+        
      }
      else{
-        session_unset();
-		session_destroy();
-		echo "<script language=javascript>alert( 'Acesso negado ao sistema!' );	</script>";
-		echo "<script language=javascript>window.location.replace('../index.html');</script>";
+        echo "<script language=javascript>alert( 'Erro loguin!' );</script>";
+        echo "<script language=javascript>window.location.replace('../index.html');</script>";
      }
 
 

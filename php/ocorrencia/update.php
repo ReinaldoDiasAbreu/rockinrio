@@ -81,7 +81,7 @@ if(empty($_SESSION['user'])) {
                             }
                         }
                         else{
-                            echo "<p>Erro ao cadastrar ocorrência.</p>";
+                            echo "<p>Erro ao atualizar ocorrência.</p>";
                         } 
 
                     }
